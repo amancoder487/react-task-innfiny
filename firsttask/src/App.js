@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import Expense from './compment/Expense';
+import NewExpense from './compment/NewExpense';
+import { useState } from 'react';
+
+export default function App(props) {
+  const [listData,setListData] =useState([])
+
+ 
+
+
+  const NewDataExpense =(data)=>{
+
+    setListData([...listData,data])
+    
+  }
+  
+  const DeleteHander =(id)=>{
+    let uu = listData.filter(
+        (p)=>{
+            return(
+                p.id !== id
+           
+            )
+
+        })
+      
+        setListData(uu)
+      }
+
+    const handleEditClick =(item)=>{
+    //  console.log("formdata",item);
+      console.log("log",item)
+
+
+      setListData(...item)
+  //  set
+    }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+      <NewExpense AddHandel={NewDataExpense} list={listData }/>
+      <Expense list={listData} setListData={setListData}  DeleteHander={DeleteHander}  handleEditClick={handleEditClick}/>
 
-export default App;
+    </div>
+    
+  )
+}
